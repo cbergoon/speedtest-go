@@ -12,32 +12,6 @@ Inspired by [sivel/speedtest-cli](https://github.com/sivel/speedtest-cli)
 go get github.com/cbergoon/speedtest-go
 ```
 
-## API Usage
-The code below finds closest available speedtest server and tests the latency, download, and upload speeds. 
-```go
-package main
-
-import (
-	"fmt"
-	"github.com/cbergoon/speedtest-go/speedtest"
-)
-
-func main() {
-	user, _ := speedtest.FetchUserInfo()
-
-	serverList, _ := speedtest.FetchServerList(user)
-	targets, _ := serverList.FindServer([]int{})
-
-	for _, s := range targets {
-		s.PingTest()
-		s.DownloadTest()
-		s.UploadTest()
-
-		fmt.Printf("Latency: %s, Download: %f, Upload: %f\n", s.Latency, s.DLSpeed, s.ULSpeed)
-	}
-}
-```
-
 ## CLI Installation
 ```bash
 go install github.com/cbergoon/speedtest-go
