@@ -3,13 +3,13 @@ package speedtest
 import (
 	"bytes"
 	"encoding/xml"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"math"
 	"net/http"
 	"sort"
 	"strconv"
-	"errors"
 	"time"
 )
 
@@ -74,7 +74,7 @@ func FetchServerList(user *User) (ServerList, error) {
 	if len(body) == 0 {
 		resp, err = http.Get("http://c.speedtest.net/speedtest-servers-static.php")
 		if err != nil {
-			errors.New("failed to retrieve alternate speedtest servers")
+			return ServerList{}, errors.New("failed to retrieve alternate speedtest servers")
 		}
 		body, err = ioutil.ReadAll(resp.Body)
 		if err != nil {
